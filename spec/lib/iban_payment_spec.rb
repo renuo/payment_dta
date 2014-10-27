@@ -200,14 +200,14 @@ describe IBANPayment do
       @record1 = Factory.create_iban_payment(:issuer_identification => "AAAAA")
       @record2 = Factory.create_iban_payment(:issuer_identification => "BBBBB")
     
-      (@record1 < @record2).should be_true
+      expect(@record1 < @record2).to be_truthy
     end
   
     it "should sort by issuers clearing number when issuer identifications are equal" do
       @record1 = Factory.create_iban_payment(:issuer_identification => "AAAAA", :ordering_party_bank_clearing_number => '253')
       @record2 = Factory.create_iban_payment(:issuer_identification => "AAAAA", :ordering_party_bank_clearing_number => '254')
     
-      (@record1 < @record2).should be_true
+      expect(@record1 < @record2).to be_truthy
     end
   end
 end

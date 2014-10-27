@@ -7,3 +7,4 @@ pkg
 tmp/*.dta
 .bundle
 Gemfile.lock
+.idea

@@ -12,27 +12,27 @@ describe BankChequePayment do
     end
     
     it 'should have a reference number' do
-      Factory.create_bank_cheque_payment(:issuer_identification => 'ABC01', :transaction_number => '00123478901').segment1[53,16].should == "ABC0100123478901"
+      Factory.create_bank_cheque_payment(issuer_identification: 'ABC01', :transaction_number => '00123478901').segment1[53,16].should == "ABC0100123478901"
     end
     
     it 'should have an account to be debited without IBAN justified left filled with blanks' do
-      Factory.create_bank_cheque_payment(:account_to_be_debited => '10235678').segment1[69,24].should == '10235678                '
+      Factory.create_bank_cheque_payment(account_to_be_debited: '10235678').segment1[69,24].should == '10235678                '
     end
     
     it 'should have an account to be debited with IBAN' do
-      Factory.create_bank_cheque_payment(:account_to_be_debited => 'CH9300762011623852957').segment1[69,24].should == 'CH9300762011623852957   '
+      Factory.create_bank_cheque_payment(account_to_be_debited: 'CH9300762011623852957').segment1[69,24].should == 'CH9300762011623852957   '
     end
     
     it 'should have a payment amount value date yymmdd' do
-      Factory.create_bank_cheque_payment(:payment_amount_value_date => '051031').segment1[93,6].should == '051031'
+      Factory.create_bank_cheque_payment(payment_amount_value_date: '051031').segment1[93,6].should == '051031'
     end
     
     it 'should have a payment amount currency code' do
-     Factory.create_bank_cheque_payment(:payment_amount_currency => 'USD').segment1[99,3].should == 'USD'
+     Factory.create_bank_cheque_payment(payment_amount_currency: 'USD').segment1[99,3].should == 'USD'
     end
     
     it 'should have a payment amount justified left filled with blanks' do
-      Factory.create_bank_cheque_payment(:payment_amount => '3949.75').segment1[102,15].should == '3949,75'.ljust(15)
+      Factory.create_bank_cheque_payment(payment_amount: '3949.75').segment1[102,15].should == '3949,75'.ljust(15)
     end
     
     it 'should have a reserve field' do
@@ -50,7 +50,7 @@ describe BankChequePayment do
     end
     
     it 'should set the conversion rate if given' do
-      Factory.create_bank_cheque_payment(:convertion_rate => '0.9543').segment2[2,12].should == '0.9543'.ljust(12)
+      Factory.create_bank_cheque_payment(convertion_rate: '0.9543').segment2[2,12].should == '0.9543'.ljust(12)
     end
     
     it 'should have an ordering partys address line 1' do
@@ -165,14 +165,14 @@ describe BankChequePayment do
       @record1 = Factory.create_bank_cheque_payment(:issuer_identification => "AAAAA")
       @record2 = Factory.create_bank_cheque_payment(:issuer_identification => "BBBBB")
       
-      (@record1 < @record2).should be_true
+      expect(@record1 < @record2).to be_truthy
     end
     
     it "should sort by issuers clearing number when issuer identifications are equal" do
       @record1 = Factory.create_bank_cheque_payment(:issuer_identification => "AAAAA", :ordering_party_bank_clearing_number => '253')
       @record2 = Factory.create_bank_cheque_payment(:issuer_identification => "AAAAA", :ordering_party_bank_clearing_number => '254')
       
-      (@record1 < @record2).should be_true
+      expect(@record1 < @record2).to be_truthy
     end
   end
 end

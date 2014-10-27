@@ -11,7 +11,7 @@ describe DTAFile do
     DTAFile.create(@path) do |file|
       file << Factory.create_esr_payment
     end
-    File.exist?(@path).should be_true
+    expect(File.exist?(@path)).to be_truthy
   end
   
   it "should set the transaction_number for any record added" do

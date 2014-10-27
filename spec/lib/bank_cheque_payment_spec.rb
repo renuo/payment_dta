@@ -54,7 +54,7 @@ describe BankChequePayment do
     end
     
     it 'should have an ordering partys address line 1' do
-      Factory.create_bank_cheque_payment(:ordering_partys_address_line1 => 'John Doe').segment2[14,24].should == 'John Doe'.ljust(24)
+      Factory.create_bank_cheque_payment(ordering_partys_address_line1: 'John Doe').segment2[14,24].should == 'John Doe'.ljust(24)
     end
 
     it 'should have an ordering partys address line 2' do

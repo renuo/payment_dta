@@ -1,5 +1,5 @@
 module DTA
-  module Payment
+  module Payments
     module Sortable
       include Comparable
 

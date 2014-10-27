@@ -23,7 +23,6 @@ Early alpha. All payments are supported. It lacks payment validations and extend
 
 == TODOS
 * Add validations
-* Merge namespaces DTA::Payment and DTA::Payments
 * Remove duplications in payment classes
 * Document the code according to the English DTA spec
 * Add API to generate a string instead of a file so that it can be used in a web application

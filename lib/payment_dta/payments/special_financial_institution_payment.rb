@@ -2,7 +2,7 @@ require 'payment_dta/payments/base'
 require 'payment_dta/payment_sorting'
 
 class SpecialFinancialInstitutionPayment < DTA::Payments::Base
-  include DTA::Payment::Sortable
+  include DTA::Payments::Sortable
     
   def record
     @record ||= segment1 + segment2 + segment3 + segment4 + segment5

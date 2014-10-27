@@ -2,7 +2,7 @@ require 'payment_dta/payments/base'
 require 'payment_dta/payment_sorting'
 
 class FinancialInstitutionPayment < DTA::Payments::Base
-  include DTA::Payment::Sortable
+  include DTA::Payments::Sortable
   
   def transaction_type
     '830'

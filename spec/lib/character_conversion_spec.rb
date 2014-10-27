@@ -245,12 +245,12 @@ describe "dta character conversion and encoding" do
   # UTF-8 encoding uses 2 bytes for non US-ASCII characters
   # ISO Latincode 8859-1 uses 1 byte
   it "should map the string before encoding it" do
-    Converter.should_receive(:map_characters).with("Äöü").and_return("AEoeue")
+    expect(Converter).to receive(:map_characters).with("Äöü").and_return("AEoeue")
     Converter.dta_string("Äöü")
   end
   
   it "should encode the strings" do
-    Converter.should_receive(:encode_characters).with("AEoeue").and_return("Äöü".encode('iso-8859-1'))
+    expect(Converter).to receive(:encode_characters).with("AEoeue").and_return("Äöü".encode('iso-8859-1'))
     Converter.dta_string("Äöü")
   end
   
@@ -258,19 +258,19 @@ describe "dta character conversion and encoding" do
     CONVERSION_MAP_UTF8.each do |id,conversion|
       it "should map #{conversion[:name]} to '#{conversion[:convert_to]}'" do
         character = create_character_from_ut8_decimal_code(id)
-        Converter.map_characters(character).should == conversion[:convert_to]
+        expect(Converter.map_characters(character)).to eq conversion[:convert_to]
       end
     end
 
     it "should map strings" do
-      Converter.map_characters("ÄäÜüÖö").should == "AEaeUEueOEoe"
+      expect(Converter.map_characters("ÄäÜüÖö")).to eq "AEaeUEueOEoe"
     end  
   end
     
   describe 'DTA character encoding' do
     it "should convert the encoding from UTF8 to ISO Latincode 8859-1" do
       encoded_string = Converter.encode_characters("Ä")
-      encoded_string.bytes.to_a.size.should == 1
+      expect(encoded_string.bytes.to_a.size).to eq 1
     end
   end
 end

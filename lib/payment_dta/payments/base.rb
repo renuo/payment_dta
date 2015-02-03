@@ -51,7 +51,7 @@ module DTA
       end
 
       def beneficiary_bank_clearing_number
-        @data[:beneficiary_bank_clearing_number].to_s.ljust(12,' ')
+        @data[:beneficiary_bank_clearing_number].to_s.ljust(12, ' ')
       end
 
       def output_sequence_number
@@ -63,7 +63,7 @@ module DTA
       end
 
       def ordering_party_bank_clearing_number
-        @data[:ordering_party_bank_clearing_number].to_s.ljust(7,' ')
+        @data[:ordering_party_bank_clearing_number].to_s.ljust(7, ' ')
       end
 
       def data_file_sender_identification
@@ -75,7 +75,7 @@ module DTA
       end
 
       def entry_sequence_number
-        @data[:entry_sequence_number].to_s.rjust(5,'0')
+        @data[:entry_sequence_number].to_s.rjust(5, '0')
       end
 
       def entry_sequence_number=(entry_sequence_number)
@@ -95,7 +95,11 @@ module DTA
       end
 
       def transaction_number
-        (@transaction_number || @data[:transaction_number]).to_s.ljust(11,'0')
+        original = (@transaction_number || @data[:transaction_number]).to_s
+        original_length = original.length
+        composed = (@transaction_number || @data[:transaction_number]).to_i + ([entry_sequence_number.to_i - 1,0].max)
+        composed_padded = composed.to_s.rjust(original_length, '0')
+        composed_padded.ljust(11, '0')
       end
 
       def transaction_number=(transaction_number)
@@ -215,19 +219,19 @@ module DTA
       end
 
       def beneficiary_institution_address_line1
-       @data[:beneficiary_institution_address_line1].to_s.ljust(24)
+        @data[:beneficiary_institution_address_line1].to_s.ljust(24)
       end
 
       def beneficiary_institution_address_line2
-       @data[:beneficiary_institution_address_line2].to_s.ljust(24)
+        @data[:beneficiary_institution_address_line2].to_s.ljust(24)
       end
 
       def beneficiary_institution_address_line3
-       @data[:beneficiary_institution_address_line3].to_s.ljust(24)
+        @data[:beneficiary_institution_address_line3].to_s.ljust(24)
       end
 
       def beneficiary_institution_address_line4
-       @data[:beneficiary_institution_address_line4].to_s.ljust(24)
+        @data[:beneficiary_institution_address_line4].to_s.ljust(24)
       end
 
       def beneficiary_iban_number
@@ -235,7 +239,7 @@ module DTA
       end
 
       def identification_purpose
-        @data[:identification_purpose].to_s[0,1]
+        @data[:identification_purpose].to_s[0, 1]
       end
 
       def purpose
@@ -247,7 +251,7 @@ module DTA
       end
 
       def rule_of_charge
-        @data[:rule_of_charge].to_s[0,1]
+        @data[:rule_of_charge].to_s[0, 1]
       end
 
       protected
@@ -281,7 +285,7 @@ module DTA
       end
 
       def reserve_field(length = 14)
-       ''.ljust(length)
+        ''.ljust(length)
       end
     end
   end
